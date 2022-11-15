@@ -3,6 +3,8 @@ const app = express();
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const blogRoutes = require("./routes/blogRoutes");
+const authRoutes = require("./routes/authRoutes");
+
 //connect to mongo
 const dbURI = "mongodb+srv://splash:splash@blog.msufnqt.mongodb.net/blogdb";
 const dbURI2 = "mongodb://localhost:27017/blog";
@@ -13,13 +15,10 @@ mongoose
   .catch((err) => console.log(err));
 
 //middlewares
+app.use(express.json());
 app.use(express.urlencoded());
 app.use(morgan("dev"));
 
-//blog routes
+// routes
 app.use("/api/blogs", blogRoutes);
-
-app.use((req, res) => {
-  // fires in every request need to be in the bot
-  res.status(404).render("404");
-});
+app.use("/api/user", authRoutes);

@@ -1,7 +1,8 @@
 const e = require("express");
 const Blog = require("../models/blog");
 
-const blog_index = (req, res) => {
+//GET all blogs
+const getBlogs = (req, res) => {
   Blog.find()
     .sort({ createdAt: -1 })
     .then((blogs) => {
@@ -10,7 +11,8 @@ const blog_index = (req, res) => {
     .catch((error) => console.log(error));
 };
 
-const blog_details = (req, res) => {
+//GET a single blog
+const getBlog = (req, res) => {
   const id = req.params.id;
   Blog.findById(id)
     .then((result) => {
@@ -19,12 +21,21 @@ const blog_details = (req, res) => {
     .catch((error) => res.render("404"));
 };
 
-const blog_create_post = async (req, res) => {
+//CREATE a blog
+const createBlog = async (req, res) => {
   const { title, body, snippet } = req.body;
-  const blog = await Blog.create({ title, body, snippet });
-  res.status(200).json({ blog });
+
+  try {
+    const blog = await Blog.createBlog(title, snippet, body);
+    const success = "Blog added";
+    res.status(200).json({ blog, success });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
-const blog_delete = (req, res) => {
+
+//DELETE a blog
+const deleteBlog = (req, res) => {
   const id = req.params.id;
   Blog.findByIdAndDelete(id)
     .then((result) => {
@@ -34,8 +45,8 @@ const blog_delete = (req, res) => {
 };
 
 module.exports = {
-  blog_index,
-  blog_details,
-  blog_create_post,
-  blog_delete,
+  getBlogs,
+  getBlog,
+  createBlog,
+  deleteBlog,
 };
