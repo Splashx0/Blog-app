@@ -17,9 +17,12 @@ const Home = () => {
       <h2>All Blogs</h2>
 
       {blogs.map((blog) => (
-        <Link key={blog._id} className="single" to="/">
+        <Link key={blog._id} to={`blogs/${blog._id}`}>
           <h3 className="title">{blog.title}</h3>
-          <p className="snippet">{blog.snippet}</p>
+          <div className="sniphost">
+            <p className="snippet">{blog.snippet}</p>
+            <p className="host"> Posted by {blog?.host?.username}</p>
+          </div>
         </Link>
       ))}
     </div>

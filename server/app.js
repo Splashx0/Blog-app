@@ -6,7 +6,7 @@ const blogRoutes = require("./routes/blogRoutes");
 const authRoutes = require("./routes/authRoutes");
 
 //connect to mongo
-const dbURI = "mongodb+srv://splash:splash@blog.msufnqt.mongodb.net/blogdb";
+//const dbURI = "mongodb+srv://splash:splash@blog.msufnqt.mongodb.net/blogdb";
 const dbURI2 = "mongodb://localhost:27017/blog";
 //asynchrenous
 mongoose

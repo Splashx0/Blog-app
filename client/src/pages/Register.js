@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-//import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext";
 const Register = () => {
-  // const navigate = useNavigate();
+  const { dispatch } = useContext(AuthContext);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [userDetails, setUserDetails] = useState({
@@ -10,6 +11,7 @@ const Register = () => {
     password: "",
   });
   const handleSubmit = async (e) => {
+    e.target.reset();
     e.preventDefault();
     if (error) {
       setError(null);
@@ -27,6 +29,8 @@ const Register = () => {
       setError(data.error);
     } else {
       setSuccess(data.success);
+      localStorage.setItem("user", JSON.stringify(data));
+      dispatch({ type: "LOGIN", payload: data });
     }
   };
 

@@ -5,14 +5,17 @@ const {
   createBlog,
   deleteBlog,
 } = require("../controllers/blogController");
+const requireAuth = require("../middleware/requireAuth");
 
 const router = express.Router();
 
 router.get("/", getBlogs);
 
-router.post("/", createBlog);
-
 router.get("/:id", getBlog);
+
+router.use(requireAuth);
+
+router.post("/", createBlog);
 
 router.delete("/:id", deleteBlog);
 

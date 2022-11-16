@@ -17,28 +17,30 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // blogs: [{ type: mongoose.Schema.Types.ObjectId, ref: "blog" }],
+    blogs: [{ type: mongoose.Schema.Types.ObjectId, ref: "blog" }],
   },
   { timestamps: true }
 );
 
-/*userSchema.statics.login = async function (username, password) {
+userSchema.statics.login = async function (email, password) {
   if (!email || !password) {
     throw Error("All fields must be filled");
-  } else {
-    const blog = await this.create({
-      title,
-      snippet,
-      body,
-    });
-    return blog;
   }
-}*/
+  const user = await this.findOne({ email });
+  if (!user) {
+    throw Error("Incorrect email");
+  }
+  const auth = await bcrypt.compare(password, user.password);
+  if (!auth) {
+    throw Error("Incorrect password");
+  }
+  return user;
+};
 userSchema.statics.register = async function (email, username, password) {
   // validation
-  /*if (!email || !username || !password) {
+  if (!email || !username || !password) {
     throw Error("All fields must be filled");
-  }*/
+  }
   if (!validator.isEmail(email)) {
     throw Error("Email not valid");
   }
@@ -52,11 +54,11 @@ userSchema.statics.register = async function (email, username, password) {
   const salt = await bcrypt.genSalt();
   hash = await bcrypt.hash(password, salt);
 
-  const user = await this.register({
+  const user = await this.create({
     email,
     username,
     password: hash,
-    //blog: [""],
+    blog: [""],
   });
   return user;
 };

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuthContext from "../hooks/useAuthContext";
 const Createblog = () => {
   const navigate = useNavigate();
+  const { user } = useAuthContext();
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [blogDetails, setBlogDetails] = useState({
@@ -19,7 +21,10 @@ const Createblog = () => {
       setSuccess(null);
     }
     const response = await fetch("/api/blogs", {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
       method: "POST",
       body: JSON.stringify(blogDetails),
     });

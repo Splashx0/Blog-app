@@ -37,6 +37,7 @@
     nav p, nav a{
       color: #777;
       font-weight: 300;
+      cursor: pointer;
     }
     footer{
       color: #777;
@@ -56,6 +57,7 @@
 
     /* index styles */
     .blogs a{
+      position: relative;
       display: block;
       margin: 40px 0;
       padding-left: 30px;
@@ -64,13 +66,35 @@
     .blogs a:hover h3{
       color: crimson;
     }
+    .blogs .sniphost{
+      display: flex;
+    }
+    .blogs  .host{
+      color: rgb(25, 170, 20);
+      font-weight:700;
+      font-size: 1.3rem;
+      position: absolute;
+      right: 0;
+      
+    }
 
     /* details styles */
-    .details{
+.details{
       position: relative;
-    }
-    .delete{
+        }
+
+  .details h2{
+    margin-bottom: 3px;
+  }
+  .details >p{
+    color: rgb(25, 170, 20);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+ .delete{
       position: absolute;
+      color: red;
       top: 0;
       right: 0;
       border-radius: 50%;
@@ -78,6 +102,7 @@
     }
     .delete:hover{
       cursor: pointer;
+      background-color: rgb(255, 255, 255);
       box-shadow: 1px 2px 3px rgba(0,0,0,0.2);
     }
 
@@ -115,7 +140,7 @@
 
     }
     .create-blog .signup{
-  
+      margin-top: 3rem;
       display: flex;
       padding: 0;
       flex-direction: column;
