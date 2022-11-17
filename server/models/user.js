@@ -17,7 +17,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    blogs: [{ type: mongoose.Schema.Types.ObjectId, ref: "blog" }],
   },
   { timestamps: true }
 );
@@ -58,7 +57,6 @@ userSchema.statics.register = async function (email, username, password) {
     email,
     username,
     password: hash,
-    blog: [""],
   });
   return user;
 };

@@ -27,7 +27,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route
           path="/create"
-          element={user ? <Createblog /> : <Navigate to="/" />}
+          element={user ? <Createblog /> : <Navigate to="/login" />}
         />
         <Route path="/*" element={<Notfound />} />
       </Routes>

@@ -4,11 +4,14 @@ import App from "./App";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/authContext";
+import { BlogContextProvider } from "./context/blogContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <AuthContextProvider>
-      <App />
+      <BlogContextProvider>
+        <App />
+      </BlogContextProvider>
     </AuthContextProvider>
   </BrowserRouter>
 );

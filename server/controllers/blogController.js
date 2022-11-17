@@ -27,11 +27,6 @@ const createBlog = async (req, res) => {
     const blog = await Blog.createBlog(host, title, snippet, body);
     const success = "Blog added";
 
-    const user = await User.updateOne(
-      { username: blog.host.username },
-      { $push: { blogs: blog._id } }
-    );
-
     res.status(200).json({ success });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -42,8 +37,9 @@ const createBlog = async (req, res) => {
 const deleteBlog = async (req, res) => {
   const id = req.params.id;
   try {
+    const success = "Blog Deleted Successfully";
     const blog = await Blog.findOneAndDelete({ _id: id });
-    res.status(202).json({ blog });
+    res.status(202).json({ success });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
